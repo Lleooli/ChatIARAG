@@ -1,18 +1,31 @@
 {
-  "buildCommand": "cd frontend && VITE_API_URL=/api npm run build",
-  "outputDirectory": "frontend/dist",
-  "installCommand": "npm install && cd frontend && npm install",
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
   "routes": [
     {
       "src": "/api/(.*)",
       "dest": "/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/dist/$1"
     }
   ],
-  "build": {
-    "env": {
-      "VITE_API_URL": "/api",
-      "VITE_SUPABASE_URL": "https://oaajzlwfbuxeottcydgi.supabase.co",
-      "VITE_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9hYWp6bHdmYnV4ZW90dGN5ZGdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NDIxMDksImV4cCI6MjA3ODAxODEwOX0.mKHgJlJeqFOVg16DAQQiUgrWwLNooByMqp7zslDgj4k"
-    }
+  "env": {
+    "VITE_API_URL": "/api",
+    "VITE_SUPABASE_URL": "https://oaajzlwfbuxeottcydgi.supabase.co",
+    "VITE_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9hYWp6bHdmYnV4ZW90dGN5ZGdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NDIxMDksImV4cCI6MjA3ODAxODEwOX0.mKHgJlJeqFOVg16DAQQiUgrWwLNooByMqp7zslDgj4k"
   }
 }

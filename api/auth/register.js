@@ -26,6 +26,8 @@ export default async function handler(req, res) {
   try {
     const { name, email, password } = req.body
 
+    console.log('📝 Registro - dados recebidos:', { name, email, hasPassword: !!password })
+
     if (!name || !email || !password) {
       return res.status(400).json({ error: 'Nome, email e senha são obrigatórios' })
     }
@@ -35,21 +37,29 @@ export default async function handler(req, res) {
     }
 
     // Verificar se email já existe
-    const { data: existing } = await supabase
+    console.log('🔍 Verificando email existente...')
+    const { data: existing, error: checkError } = await supabase
       .from('users')
       .select('id')
       .eq('email', email.toLowerCase())
-      .single()
+      .maybeSingle()
+
+    if (checkError) {
+      console.error('❌ Erro ao verificar email:', checkError)
+      return res.status(500).json({ error: 'Erro ao verificar email', details: checkError.message })
+    }
 
     if (existing) {
       return res.status(400).json({ error: 'Email já cadastrado' })
     }
 
     // Hash da senha
-    const salt = await bcrypt.genSalt(10)
-    const password_hash = await bcrypt.hash(password, salt)
+    console.log('🔐 Gerando hash da senha...')
+    const password_hash = await bcrypt.hash(password, 10)
+    console.log('✅ Hash gerado com sucesso')
 
     // Criar usuário
+    console.log('👤 Criando usuário no banco...')
     const { data: user, error } = await supabase
       .from('users')
       .insert({
@@ -61,9 +71,11 @@ export default async function handler(req, res) {
       .single()
 
     if (error) {
-      console.error('Erro ao criar usuário:', error)
-      return res.status(500).json({ error: 'Erro ao criar usuário' })
+      console.error('❌ Erro ao criar usuário:', error)
+      return res.status(500).json({ error: 'Erro ao criar usuário', details: error.message })
     }
+
+    console.log('✅ Usuário criado:', user.id)
 
     // Gerar JWT
     const token = jwt.sign(
@@ -80,7 +92,11 @@ export default async function handler(req, res) {
       user: userWithoutPassword
     })
   } catch (error) {
-    console.error('Erro no registro:', error)
-    res.status(500).json({ error: 'Erro interno do servidor' })
+    console.error('❌ Erro no registro:', error)
+    res.status(500).json({ 
+      error: 'Erro interno do servidor',
+      message: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    })
   }
 }

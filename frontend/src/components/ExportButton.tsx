@@ -108,7 +108,7 @@ export default function ExportButton({ messages, conversationTitle = 'Conversa' 
 
       // Messages
       doc.setTextColor(0)
-      messages.forEach((msg, index) => {
+      messages.forEach((msg) => {
         // Check if we need a new page
         if (y > 270) {
           doc.addPage()

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd'
 import { MessageSquare, User, Clock, ChevronRight } from 'lucide-react'
-import axios from 'axios'
 
 type ConversationStatus = 'new' | 'in_progress' | 'resolved' | 'archived'
 

@@ -219,10 +219,10 @@ URL: https://oaajzlwfbuxeottcydgi.supabase.co
 
 **Service Role Key:**
 ```
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9hYWp6bHdmYnV4ZW90dGN5ZGdpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyODMzODE0OCwiZXhwIjoyMDQzOTE0MTQ4fQ.G-V0M4Nqq4qIpUIFVpvH4o-JzWt3oLbZLSAL5Y9hpkY
+[REMOVIDO POR SEGURANÇA - Acesse o Supabase Dashboard]
 ```
 
-> ⚠️ **Nota de Segurança**: A Anon Key foi removida do README por segurança. Para obter as credenciais completas, consulte o arquivo `.env.local` ou acesse o dashboard do Supabase.
+> ⚠️ **Nota de Segurança**: As chaves sensíveis foram removidas do README por segurança. Para obter as credenciais completas, acesse o dashboard do Supabase em https://supabase.com/dashboard
 
 ### Estrutura de Tabelas
 

@@ -48,6 +48,8 @@ frontend/dist/
 .env.production.local
 .env.vercel
 .env.vercel.*
+frontend/.env.production
+frontend/.env.local
 .vercel
 
 # IDEs

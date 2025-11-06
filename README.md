@@ -222,10 +222,7 @@ URL: https://oaajzlwfbuxeottcydgi.supabase.co
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9hYWp6bHdmYnV4ZW90dGN5ZGdpIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTcyODMzODE0OCwiZXhwIjoyMDQzOTE0MTQ4fQ.G-V0M4Nqq4qIpUIFVpvH4o-JzWt3oLbZLSAL5Y9hpkY
 ```
 
-**Anon Key (Public):**
-```
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9hYWp6bHdmYnV4ZW90dGN5ZGdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjgzMzgxNDgsImV4cCI6MjA0MzkxNDE0OH0.PauRqx3xIqrOi6bYhD3kVhGevE2gWdmYbhCr-ywrB1U
-```
+> ⚠️ **Nota de Segurança**: A Anon Key foi removida do README por segurança. Para obter as credenciais completas, consulte o arquivo `.env.local` ou acesse o dashboard do Supabase.
 
 ### Estrutura de Tabelas
 

@@ -31,8 +31,20 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 } // 10MB max
 })
 
-// Middlewares
-app.use(cors())
+// Middlewares - CORS configurado para produção
+const corsOptions = {
+  origin: [
+    'http://localhost:5173', // Desenvolvimento local Vite
+    'http://localhost:3000', // Desenvolvimento local alternativo
+    'https://chat-iarag.vercel.app', // Produção frontend
+    'https://chat-iarag-imfxq262q-leonardo-oliveiras-projects-5d8eec12.vercel.app', // Produção backend
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}
+
+app.use(cors(corsOptions))
 app.use(express.json())
 
 // Supabase

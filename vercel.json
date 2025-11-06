@@ -4,7 +4,7 @@
   "outputDirectory": "frontend/dist",
   "installCommand": "npm install && cd frontend && npm install",
   "env": {
-    "VITE_API_URL": "https://chat-iarag-npsohdc6k-leonardo-oliveiras-projects-5d8eec12.vercel.app/api",
+    "VITE_API_URL": "https://chat-iarag-backend-3nrllhwzb.vercel.app/api",
     "VITE_SUPABASE_URL": "https://oaajzlwfbuxeottcydgi.supabase.co",
     "VITE_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9hYWp6bHdmYnV4ZW90dGN5ZGdpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjI0NDIxMDksImV4cCI6MjA3ODAxODEwOX0.mKHgJlJeqFOVg16DAQQiUgrWwLNooByMqp7zslDgj4k"
   }

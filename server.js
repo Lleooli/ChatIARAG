@@ -31,35 +31,13 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 } // 10MB max
 })
 
-// Middlewares - CORS configurado para produção
+// Middlewares - CORS configurado para produção (simplificado para serverless)
 const corsOptions = {
-  origin: (origin, callback) => {
-    const allowedOrigins = [
-      'http://localhost:5173',
-      'http://localhost:3000',
-      /https:\/\/chat-iarag.*\.vercel\.app$/, // Aceita todos os deploys da Vercel
-    ]
-    
-    // Permite requisições sem origin (Postman, mobile apps, etc)
-    if (!origin) return callback(null, true)
-    
-    // Verifica se a origem está na lista ou corresponde ao regex
-    const isAllowed = allowedOrigins.some(allowed => {
-      if (allowed instanceof RegExp) {
-        return allowed.test(origin)
-      }
-      return allowed === origin
-    })
-    
-    if (isAllowed) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  },
+  origin: true, // Aceita todas as origens (temporário para debug)
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200
 }
 
 app.use(cors(corsOptions))

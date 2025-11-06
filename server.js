@@ -1174,3 +1174,6 @@ process.on('SIGINT', () => {
     process.exit(0)
   })
 })
+
+// Export para Vercel serverless functions
+export default app

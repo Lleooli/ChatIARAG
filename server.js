@@ -31,16 +31,22 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 } // 10MB max
 })
 
-// Middlewares - CORS configurado para produção (simplificado para serverless)
-const corsOptions = {
-  origin: true, // Aceita todas as origens (temporário para debug)
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  optionsSuccessStatus: 200
-}
+// Middleware manual de CORS para Vercel Serverless
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', req.headers.origin || '*')
+  res.header('Access-Control-Allow-Credentials', 'true')
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization')
+  
+  // Handle preflight
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end()
+  }
+  
+  next()
+})
 
-app.use(cors(corsOptions))
+// Middlewares
 app.use(express.json())
 
 // Supabase

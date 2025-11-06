@@ -37,7 +37,7 @@ const corsOptions = {
     'http://localhost:5173', // Desenvolvimento local Vite
     'http://localhost:3000', // Desenvolvimento local alternativo
     'https://chat-iarag.vercel.app', // Produção frontend
-    'https://chat-iarag-imfxq262q-leonardo-oliveiras-projects-5d8eec12.vercel.app', // Produção backend
+    'https://chat-iarag-pt1lyglec-leonardo-oliveiras-projects-5d8eec12.vercel.app', // Produção backend
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],

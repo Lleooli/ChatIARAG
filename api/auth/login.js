@@ -26,6 +26,14 @@ export default async function handler(req, res) {
   try {
     const { email, password } = req.body
 
+    console.log('🔐 Login attempt:', { email, hasPassword: !!password })
+    console.log('📌 Env vars:', {
+      hasUrl: !!process.env.VITE_SUPABASE_URL,
+      hasKey: !!process.env.VITE_SUPABASE_SERVICE_ROLE_KEY,
+      urlStart: process.env.VITE_SUPABASE_URL?.substring(0, 30),
+      keyStart: process.env.VITE_SUPABASE_SERVICE_ROLE_KEY?.substring(0, 30)
+    })
+
     if (!email || !password) {
       return res.status(400).json({ error: 'Email e senha são obrigatórios' })
     }

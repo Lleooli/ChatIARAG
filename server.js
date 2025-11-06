@@ -33,12 +33,30 @@ const upload = multer({
 
 // Middlewares - CORS configurado para produção
 const corsOptions = {
-  origin: [
-    'http://localhost:5173', // Desenvolvimento local Vite
-    'http://localhost:3000', // Desenvolvimento local alternativo
-    'https://chat-iarag.vercel.app', // Produção frontend
-    'https://chat-iarag-pt1lyglec-leonardo-oliveiras-projects-5d8eec12.vercel.app', // Produção backend
-  ],
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      'http://localhost:5173',
+      'http://localhost:3000',
+      /https:\/\/chat-iarag.*\.vercel\.app$/, // Aceita todos os deploys da Vercel
+    ]
+    
+    // Permite requisições sem origin (Postman, mobile apps, etc)
+    if (!origin) return callback(null, true)
+    
+    // Verifica se a origem está na lista ou corresponde ao regex
+    const isAllowed = allowedOrigins.some(allowed => {
+      if (allowed instanceof RegExp) {
+        return allowed.test(origin)
+      }
+      return allowed === origin
+    })
+    
+    if (isAllowed) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],

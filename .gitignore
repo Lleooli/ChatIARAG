@@ -33,10 +33,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# Next.js
+# Next.js / Vite
 .next/
 out/
 build/
+frontend/dist/
 
 # Environment variables
 .env
@@ -44,6 +45,7 @@ build/
 .env.development.local
 .env.test.local
 .env.production.local
+.vercel
 
 # IDEs
 .vscode/
@@ -72,3 +74,6 @@ logs/
 tmp/
 temp/
 *.tmp
+
+# TypeScript
+*.tsbuildinfo

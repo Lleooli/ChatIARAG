@@ -9,46 +9,8 @@
     }
   },
   "routes": [
-    {
-      "src": "/api/auth/login",
-      "dest": "/api/auth/login.js"
-    },
-    {
-      "src": "/api/auth/register",
-      "dest": "/api/auth/register.js"
-    },
-    {
-      "src": "/api/auth/me",
-      "dest": "/api/auth/me.js"
-    },
-    {
-      "src": "/api/chat",
-      "dest": "/api/chat/index.js"
-    },
-    {
-      "src": "/api/conversations",
-      "dest": "/api/conversations/index.js"
-    },
-    {
-      "src": "/api/conversations/(.*)",
-      "dest": "/api/conversations/[id].js"
-    },
-    {
-      "src": "/api/documents",
-      "dest": "/api/documents/index.js"
-    },
-    {
-      "src": "/api/documents/(.*)",
-      "dest": "/api/documents/[id].js"
-    },
-    {
-      "src": "/api/metrics",
-      "dest": "/api/metrics/index.js"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/frontend/dist/$1"
-    }
+    { "handle": "filesystem" },
+    { "src": "/.*", "dest": "/index.html" }
   ],
   "env": {
     "VITE_API_URL": "/api",

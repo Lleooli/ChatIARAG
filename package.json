@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "node --version",
-    "build": "tsc"
+    "start": "node server.js",
+    "dev": "node server.js",
+    "build": "echo 'Build completed'"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

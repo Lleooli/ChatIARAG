@@ -1,12 +1,53 @@
 {
   "version": 2,
-  "buildCommand": "cd frontend && npm run build",
+  "buildCommand": "cd frontend && npm install && npm run build",
   "outputDirectory": "frontend/dist",
-  "installCommand": "npm install && cd frontend && npm install",
-  "rewrites": [
+  "installCommand": "npm install --legacy-peer-deps",
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "@vercel/node@3.2.14"
+    }
+  },
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
+      "src": "/api/auth/login",
+      "dest": "/api/auth/login.js"
+    },
+    {
+      "src": "/api/auth/register",
+      "dest": "/api/auth/register.js"
+    },
+    {
+      "src": "/api/auth/me",
+      "dest": "/api/auth/me.js"
+    },
+    {
+      "src": "/api/chat",
+      "dest": "/api/chat/index.js"
+    },
+    {
+      "src": "/api/conversations",
+      "dest": "/api/conversations/index.js"
+    },
+    {
+      "src": "/api/conversations/(.*)",
+      "dest": "/api/conversations/[id].js"
+    },
+    {
+      "src": "/api/documents",
+      "dest": "/api/documents/index.js"
+    },
+    {
+      "src": "/api/documents/(.*)",
+      "dest": "/api/documents/[id].js"
+    },
+    {
+      "src": "/api/metrics",
+      "dest": "/api/metrics/index.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/dist/$1"
     }
   ],
   "env": {

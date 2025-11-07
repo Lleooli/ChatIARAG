@@ -41,7 +41,7 @@ export default function RegisterPage() {
     setLoading(true)
 
     try {
-      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api'
+      const API_URL = import.meta.env.VITE_API_URL || '/api'
       const { data } = await axios.post(`${API_URL}/auth/register`, {
         name: formData.name,
         email: formData.email,

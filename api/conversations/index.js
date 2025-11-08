@@ -32,13 +32,18 @@ export default async function handler(req, res) {
     const userId = getUserIdFromToken(req)
 
     if (req.method === 'GET') {
+      console.log('📋 GET /conversations para userId:', userId)
       const { data, error } = await supabase
         .from('conversations')
         .select('*')
         .eq('user_id', userId)
         .order('created_at', { ascending: false })
 
-      if (error) throw error
+      if (error) {
+        console.error('❌ Erro ao buscar conversas:', error)
+        throw error
+      }
+      console.log('✅ Conversas encontradas:', data?.length || 0)
       return res.status(200).json(data)
     }
 

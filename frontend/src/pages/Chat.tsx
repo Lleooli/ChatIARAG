@@ -38,6 +38,7 @@ export default function ChatPage() {
   }, [])
 
   useEffect(() => {
+    console.log('🔄 useEffect currentConversation:', currentConversation)
     if (currentConversation) {
       loadMessages(currentConversation)
     } else {
@@ -52,10 +53,12 @@ export default function ChatPage() {
   const loadConversations = async () => {
     setLoadingConversations(true)
     try {
+      console.log('🔄 Carregando conversas...')
       const { data } = await api.get('/conversations')
+      console.log('✅ Conversas carregadas:', data)
       setConversations(Array.isArray(data) ? data : [])
     } catch (err) {
-      console.error('Erro ao carregar conversas:', err)
+      console.error('❌ Erro ao carregar conversas:', err)
       setConversations([])
     } finally {
       setLoadingConversations(false)
@@ -64,11 +67,13 @@ export default function ChatPage() {
 
   const loadMessages = async (conversationId: string) => {
     try {
+      console.log('🔄 Carregando mensagens da conversa:', conversationId)
       // Backend returns messages on GET /conversations/{id}
       const { data } = await api.get(`/conversations/${conversationId}`)
+      console.log('✅ Mensagens carregadas:', data)
       setMessages(Array.isArray(data) ? data : [])
     } catch (err) {
-      console.error('Erro ao carregar mensagens:', err)
+      console.error('❌ Erro ao carregar mensagens:', err)
       setMessages([])
     }
   }
@@ -216,6 +221,7 @@ export default function ChatPage() {
                       : 'hover:bg-gray-50 border border-transparent hover:shadow-sm'
                   }`}
                   onClick={() => {
+                    console.log('👆 Clicou na conversa:', conv.id, conv.title)
                     setCurrentConversation(conv.id)
                     setSidebarOpen(false)
                   }}

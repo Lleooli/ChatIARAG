@@ -33,6 +33,7 @@ export default async function handler(req, res) {
     const { id } = req.query
 
     if (req.method === 'GET') {
+      console.log('📨 GET /conversations/:id para conversationId:', id, 'userId:', userId)
       // Buscar mensagens da conversa
       const { data, error } = await supabase
         .from('messages')
@@ -40,7 +41,11 @@ export default async function handler(req, res) {
         .eq('conversation_id', id)
         .order('created_at', { ascending: true })
 
-      if (error) throw error
+      if (error) {
+        console.error('❌ Erro ao buscar mensagens:', error)
+        throw error
+      }
+      console.log('✅ Mensagens encontradas:', data?.length || 0)
       return res.status(200).json(data)
     }
 

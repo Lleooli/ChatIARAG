@@ -17,11 +17,18 @@ export default async function handler(req, res) {
 
   try {
     const userId = getUserIdFromToken(req)
-  const { message, conversationId, documentIds } = req.body
+    const { message, conversationId, documentIds } = req.body
 
     if (!message) {
       return res.status(400).json({ error: 'Mensagem é obrigatória' })
     }
+
+    console.log('📩 Chat request:', {
+      userId,
+      conversationId,
+      documentIds,
+      hasDocuments: documentIds && documentIds.length > 0
+    })
 
     // Buscar config do usuário para pegar API key
     const { data: config } = await supabase
@@ -64,7 +71,8 @@ export default async function handler(req, res) {
       0.7,
       3,
       userId,
-      conversationId || null
+      conversationId || null,
+      documentIds || null
     )
     const context = buildRAGContext(relevantChunks)
 

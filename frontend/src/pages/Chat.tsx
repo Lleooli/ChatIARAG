@@ -53,9 +53,10 @@ export default function ChatPage() {
     setLoadingConversations(true)
     try {
       const { data } = await api.get('/conversations')
-      setConversations(data || [])
+      setConversations(Array.isArray(data) ? data : [])
     } catch (err) {
       console.error('Erro ao carregar conversas:', err)
+      setConversations([])
     } finally {
       setLoadingConversations(false)
     }
@@ -65,9 +66,10 @@ export default function ChatPage() {
     try {
       // Backend returns messages on GET /conversations/{id}
       const { data } = await api.get(`/conversations/${conversationId}`)
-      setMessages(data || [])
+      setMessages(Array.isArray(data) ? data : [])
     } catch (err) {
       console.error('Erro ao carregar mensagens:', err)
+      setMessages([])
     }
   }
 
@@ -198,7 +200,7 @@ export default function ChatPage() {
               <div className="flex items-center justify-center py-8">
                 <Loader2 className="w-6 h-6 animate-spin text-gray-400" />
               </div>
-            ) : conversations.length === 0 ? (
+            ) : !Array.isArray(conversations) || conversations.length === 0 ? (
               <div className="text-center py-8 px-4 text-gray-500">
                 <MessageSquare className="w-12 h-12 mx-auto mb-2 opacity-50" />
                 <p className="text-sm">Nenhuma conversa ainda</p>
@@ -316,7 +318,7 @@ export default function ChatPage() {
         </div>
 
         <div className="flex-1 overflow-y-auto p-3 lg:p-4 space-y-3 lg:space-y-4 min-h-0">
-          {messages.length === 0 ? (
+          {!Array.isArray(messages) || messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-gray-500 px-4">
               <div className="w-20 h-20 lg:w-24 lg:h-24 bg-gradient-to-br from-primary/10 to-primary/5 rounded-full flex items-center justify-center mb-4">
                 <Bot className="w-10 h-10 lg:w-12 lg:h-12 text-primary/60" />

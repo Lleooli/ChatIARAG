@@ -147,7 +147,7 @@ export default function ChatPage() {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
         content: typeof data.message === 'string' ? data.message : (data.message?.content || 'Sem resposta'),
-        sources: data.sources,
+        sources: Array.isArray(data.sources) ? data.sources : [],
         created_at: new Date().toISOString(),
       }
       setMessages((prev) => [...prev, assistantMsg])

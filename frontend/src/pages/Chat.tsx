@@ -359,7 +359,7 @@ export default function ChatPage() {
                     >
                       <p className="text-sm lg:text-base whitespace-pre-wrap break-words">{msg.content}</p>
                       
-                      {msg.sources && msg.sources.length > 0 && (
+                      {msg.sources && Array.isArray(msg.sources) && msg.sources.length > 0 && (
                         <div className="mt-2 pt-2 border-t border-white/20">
                           <p className="text-xs font-semibold mb-1 opacity-80">📚 Fontes:</p>
                           <ul className="text-xs space-y-0.5 opacity-80">

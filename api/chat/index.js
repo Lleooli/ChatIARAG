@@ -95,11 +95,11 @@ export default async function handler(req, res) {
     res.status(200).json({
       message: assistantMessage,
       conversationId: conversation.id,
-      sources: relevantChunks.map(c => ({ 
+      sources: Array.isArray(relevantChunks) ? relevantChunks.map(c => ({ 
         filename: c.filename, 
         similarity: c.similarity,
         content: c.chunk_text?.substring(0, 100) + '...'
-      }))
+      })) : []
     })
   } catch (error) {
     console.error('Erro no chat:', error)

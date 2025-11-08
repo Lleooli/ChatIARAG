@@ -17,6 +17,7 @@
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "formidable": "^3.5.2",
     "jsonwebtoken": "^9.0.2",
     "markdown-it": "^14.1.0",
     "multer": "^2.0.2",

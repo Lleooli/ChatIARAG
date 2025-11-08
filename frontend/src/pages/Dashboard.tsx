@@ -107,7 +107,7 @@ export default function DashboardPage() {
         <MetricCard
           icon={<Star className="w-5 h-5 lg:w-6 lg:h-6" />}
           title="Avaliação Média"
-          value={metrics.avgRating.toFixed(1)}
+          value={(metrics.avgRating || 0).toFixed(1)}
           color="yellow"
           suffix="/5"
         />

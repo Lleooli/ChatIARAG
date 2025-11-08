@@ -30,6 +30,53 @@ export default async function handler(req, res) {
 
   try {
     const userId = getUserIdFromToken(req)
+    const { id } = req.query
+
+    // Se tem ID na query, trata como requisição específica de uma conversa
+    if (id) {
+      console.log('📨 GET /conversations com id:', id, 'userId:', userId)
+      
+      if (req.method === 'GET') {
+        // Buscar mensagens da conversa
+        const { data, error } = await supabase
+          .from('messages')
+          .select('*')
+          .eq('conversation_id', id)
+          .order('created_at', { ascending: true })
+
+        if (error) {
+          console.error('❌ Erro ao buscar mensagens:', error)
+          throw error
+        }
+        console.log('✅ Mensagens encontradas:', data?.length || 0)
+        return res.status(200).json(data)
+      }
+
+      if (req.method === 'PATCH') {
+        const { status } = req.body
+        const { data, error } = await supabase
+          .from('conversations')
+          .update({ status })
+          .eq('id', id)
+          .eq('user_id', userId)
+          .select()
+          .single()
+
+        if (error) throw error
+        return res.status(200).json(data)
+      }
+
+      if (req.method === 'DELETE') {
+        const { error } = await supabase
+          .from('conversations')
+          .delete()
+          .eq('id', id)
+          .eq('user_id', userId)
+
+        if (error) throw error
+        return res.status(204).end()
+      }
+    }
 
     if (req.method === 'GET') {
       console.log('📋 GET /conversations para userId:', userId)

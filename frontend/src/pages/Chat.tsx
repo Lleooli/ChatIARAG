@@ -68,8 +68,8 @@ export default function ChatPage() {
   const loadMessages = async (conversationId: string) => {
     try {
       console.log('🔄 Carregando mensagens da conversa:', conversationId)
-      // Backend returns messages on GET /conversations/{id}
-      const { data } = await api.get(`/conversations/${conversationId}`)
+      // Backend expects ?id=xxx query parameter
+      const { data } = await api.get(`/conversations?id=${conversationId}`)
       console.log('✅ Mensagens carregadas:', data)
       setMessages(Array.isArray(data) ? data : [])
     } catch (err) {
@@ -87,7 +87,7 @@ export default function ChatPage() {
 
   const archiveConversation = async (conversationId: string) => {
     try {
-      await api.patch(`/conversations/${conversationId}`, {
+      await api.patch(`/conversations?id=${conversationId}`, {
         status: 'archived'
       })
       
@@ -105,7 +105,7 @@ export default function ChatPage() {
     if (!confirm('Deseja realmente deletar esta conversa?')) return
     
     try {
-      await api.delete(`/conversations/${conversationId}`)
+      await api.delete(`/conversations?id=${conversationId}`)
       
       if (currentConversation === conversationId) {
         createNewConversation()

@@ -46,11 +46,14 @@ export default async function handler(req, res) {
     if (req.method === 'GET') {
       const { data, error } = await supabase
         .from('documents')
-        .select('id, filename, mimetype, size, created_at')
+        .select('id, filename, filetype, filesize, created_at')
         .eq('user_id', userId)
         .order('created_at', { ascending: false })
 
-      if (error) throw error
+      if (error) {
+        console.error('Erro em documents:', error)
+        throw error
+      }
       return res.status(200).json(data)
     }
 
@@ -89,8 +92,8 @@ export default async function handler(req, res) {
         .insert({
           user_id: userId,
           filename: file.originalFilename,
-          mimetype: file.mimetype,
-          size: file.size
+          filetype: file.mimetype,
+          filesize: file.size
         })
         .select()
         .single()

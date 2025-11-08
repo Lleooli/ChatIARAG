@@ -86,14 +86,15 @@ export default async function handler(req, res) {
 
       const content = await parseFile(file.filepath, file.mimetype)
       
-      // Criar documento
+      // Criar documento (armazenar conteúdo para auditoria/visualização)
       const { data: doc, error: docError } = await supabase
         .from('documents')
         .insert({
           user_id: userId,
           filename: file.originalFilename,
           filetype: file.mimetype,
-          filesize: file.size
+          filesize: file.size,
+          content
         })
         .select()
         .single()

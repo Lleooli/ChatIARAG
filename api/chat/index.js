@@ -17,7 +17,7 @@ export default async function handler(req, res) {
 
   try {
     const userId = getUserIdFromToken(req)
-    const { message, conversationId, documentIds } = req.body
+  const { message, conversationId, documentIds } = req.body
 
     if (!message) {
       return res.status(400).json({ error: 'Mensagem é obrigatória' })
@@ -57,7 +57,15 @@ export default async function handler(req, res) {
     }
 
     // Buscar contexto RAG
-    const relevantChunks = await searchSimilarDocuments(supabase, message, apiKey, 0.7, 3)
+    const relevantChunks = await searchSimilarDocuments(
+      supabase,
+      message,
+      apiKey,
+      0.7,
+      3,
+      userId,
+      conversationId || null
+    )
     const context = buildRAGContext(relevantChunks)
 
     // Buscar histórico

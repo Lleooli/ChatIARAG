@@ -102,7 +102,7 @@ export default async function handler(req, res) {
       if (docError) throw docError
 
       // Gerar chunks e embeddings
-      const chunks = chunkText(content, 500)
+  const chunks = chunkText(content, 500)
       const embeddings = []
 
       for (let i = 0; i < chunks.length; i++) {
@@ -110,7 +110,7 @@ export default async function handler(req, res) {
         embeddings.push({
           document_id: doc.id,
           chunk_index: i,
-          content: chunks[i],
+          chunk_text: chunks[i],
           embedding
         })
       }

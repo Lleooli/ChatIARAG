@@ -114,6 +114,14 @@ export default async function handler(req, res) {
     if (error.message === 'Token não fornecido' || error.name === 'JsonWebTokenError') {
       return res.status(401).json({ error: 'Não autorizado' })
     }
+    
+    // Erro de créditos do OpenRouter
+    if (error.status === 402 || error.code === 402) {
+      return res.status(402).json({ 
+        error: 'Créditos insuficientes no OpenRouter. Adicione créditos em https://openrouter.ai/settings/credits ou use um modelo mais barato (ex: google/gemini-flash-1.5)' 
+      })
+    }
+    
     res.status(500).json({ error: 'Erro interno do servidor' })
   }
 }

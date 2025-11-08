@@ -63,7 +63,8 @@ export default function ChatPage() {
 
   const loadMessages = async (conversationId: string) => {
     try {
-      const { data } = await api.get(`/conversations/${conversationId}/messages`)
+      // Backend returns messages on GET /conversations/{id}
+      const { data } = await api.get(`/conversations/${conversationId}`)
       setMessages(data || [])
     } catch (err) {
       console.error('Erro ao carregar mensagens:', err)
@@ -133,22 +134,21 @@ export default function ChatPage() {
     try {
       const { data } = await api.post('/chat', {
         message: userMessage,
-        conversation_id: currentConversation,
-        sender_id: 'local',
-        document_ids: docsToSend.length > 0 ? docsToSend : undefined
+        conversationId: currentConversation || undefined,
+        documentIds: docsToSend.length > 0 ? docsToSend : undefined,
       })
       
-      if (!currentConversation && data.conversation_id) {
-        setCurrentConversation(data.conversation_id)
+      if (!currentConversation && data.conversationId) {
+        setCurrentConversation(data.conversationId)
         loadConversations()
       }
       
       const assistantMsg: Message = {
-        id: data.message?.id || (Date.now() + 1).toString(),
+        id: (Date.now() + 1).toString(),
         role: 'assistant',
-        content: data.message?.content || 'Sem resposta',
+        content: typeof data.message === 'string' ? data.message : (data.message?.content || 'Sem resposta'),
         sources: data.sources,
-        created_at: data.message?.created_at || new Date().toISOString(),
+        created_at: new Date().toISOString(),
       }
       setMessages((prev) => [...prev, assistantMsg])
     } catch (err: any) {

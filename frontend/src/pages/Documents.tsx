@@ -8,7 +8,7 @@ type Document = {
   filename: string
   filetype: string
   filesize: number
-  uploaded_at: string
+  created_at: string
 }
 
 export default function DocumentsPage() {
@@ -168,7 +168,7 @@ export default function DocumentsPage() {
                     <p className="font-medium text-gray-900 truncate">{doc.filename}</p>
                     <p className="text-xs lg:text-sm text-gray-500">
                       {formatFileSize(doc.filesize)} •{' '}
-                      {new Date(doc.uploaded_at).toLocaleDateString('pt-BR', {
+                      {new Date(doc.created_at).toLocaleDateString('pt-BR', {
                         day: '2-digit',
                         month: 'short',
                         year: 'numeric',
